@@ -26,6 +26,27 @@ export const api = {
       };
     }
 
+    // Dev fallback: if frontend is served from a different localhost port (e.g. 5173),
+    // retry against the Express server on :3000.
+    if (
+      response.status === 404 &&
+      typeof window !== "undefined" &&
+      (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") &&
+      window.location.port !== "3000"
+    ) {
+      try {
+        response = await fetch("http://localhost:3000/api/links", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ tng_url: tngUrl }),
+        });
+      } catch {
+        return {
+          error: "API tidak ditemui pada origin semasa atau localhost:3000. Jalankan `npm run dev`.",
+        };
+      }
+    }
+
     const raw = await response.text();
     let data: CreateLinkResponse | null = null;
 
