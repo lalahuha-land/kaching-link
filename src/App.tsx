@@ -44,7 +44,7 @@ export default function App() {
       }
     } catch (error) {
       console.error('Error creating link:', error);
-      setError("Ralat rangkaian. Sila cuba lagi.");
+      setError(error instanceof Error ? error.message : "Ralat rangkaian. Sila cuba lagi.");
     } finally {
       setLoading(false);
     }

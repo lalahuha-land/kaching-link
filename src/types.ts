@@ -8,6 +8,6 @@ export interface LinkData {
 }
 
 export interface CreateLinkResponse {
-  id: string;
+  id?: string;
   error?: string;
 }
