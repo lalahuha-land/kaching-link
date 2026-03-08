@@ -84,6 +84,11 @@ export function renderCardSvg(line1: string, line2: string): string {
 </svg>`;
 }
 
+export function buildCardPngUrl(pantun: [string, string]): string {
+  const text = `${pantun[0]}\n${pantun[1]}\n\ntap to claim your duit raya`;
+  return `https://dummyimage.com/1200x630/0f3d2e/f7eddc.png&text=${encodeURIComponent(text)}`;
+}
+
 export function renderPreviewPage(params: {
   id: string;
   tngUrl: string;
