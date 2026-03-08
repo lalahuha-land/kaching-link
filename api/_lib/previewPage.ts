@@ -75,7 +75,6 @@ export function renderCardSvg(line1: string, line2: string): string {
   <circle cx="1050" cy="130" r="72" fill="#f4c44d" opacity="0.2" />
   <circle cx="160" cy="520" r="90" fill="#f4c44d" opacity="0.18" />
 
-  <text x="600" y="190" font-size="54" text-anchor="middle" fill="#b2521c" font-family="Georgia, 'Times New Roman', serif" font-weight="700">Selamat Hari Raya</text>
   <text x="600" y="290" font-size="44" text-anchor="middle" fill="#1f3e33" font-family="Georgia, 'Times New Roman', serif">${safe1}</text>
   <text x="600" y="350" font-size="44" text-anchor="middle" fill="#1f3e33" font-family="Georgia, 'Times New Roman', serif">${safe2}</text>
 
@@ -106,19 +105,21 @@ export function renderPreviewPage(params: {
   id: string;
   tngUrl: string;
   pantun: [string, string];
+  assetPath: string;
   host?: string;
   proto?: string;
 }): string {
   const metadata = loadMetadata();
   const baseUrl = resolveBaseUrl(params.host, params.proto);
   const pageUrl = `${baseUrl}/k/${params.id}`;
-  const ogImage = `${baseUrl}/api/card/${params.id}`;
+  const ogImage = `${baseUrl}${params.assetPath}`;
 
   const safeTitle = escapeHtml(metadata.ogTitle);
   const safeDescription = escapeHtml(metadata.ogDescription);
   const safeOgImage = escapeHtml(ogImage);
   const safePageUrl = escapeHtml(pageUrl);
   const safeTngUrl = escapeHtml(params.tngUrl);
+  const safeAssetPath = escapeHtml(params.assetPath);
   const safeLine1 = escapeHtml(params.pantun[0]);
   const safeLine2 = escapeHtml(params.pantun[1]);
 
@@ -182,11 +183,23 @@ export function renderPreviewPage(params: {
         position: relative;
         border-radius: 20px;
         overflow: hidden;
-        padding: 30px 20px;
-        background:
-          radial-gradient(circle at 12% 16%, rgba(249,115,22,.18), transparent 32%),
-          radial-gradient(circle at 88% 82%, rgba(15,118,110,.16), transparent 30%),
-          #fff7e8;
+        min-height: 380px;
+        background: #0f766e;
+      }
+      .card img {
+        width: 100%;
+        display: block;
+      }
+      .overlay {
+        position: absolute;
+        left: 8%;
+        right: 48%;
+        bottom: 11%;
+        background: rgba(16, 131, 125, 0.88);
+        border-radius: 14px;
+        padding: 18px 16px;
+        border: 2px solid rgba(255, 255, 255, 0.18);
+        box-shadow: 0 8px 20px rgba(0,0,0,.2);
       }
       .badge {
         display: inline-block;
@@ -200,22 +213,23 @@ export function renderPreviewPage(params: {
         text-transform: uppercase;
       }
       .pantun {
-        margin: 16px 0 0;
-        color: #1f3e33;
-        font-size: clamp(22px, 3vw, 30px);
-        line-height: 1.5;
+        margin: 10px 0 0;
+        color: #fefce8;
+        font-size: clamp(16px, 2vw, 23px);
+        line-height: 1.45;
         font-family: Georgia, "Times New Roman", serif;
         font-weight: 700;
+        text-shadow: 0 2px 6px rgba(0,0,0,.3);
       }
       .cta {
-        margin-top: 18px;
-        font-size: 12px;
+        margin-top: 12px;
+        font-size: 11px;
         letter-spacing: .12em;
         text-transform: uppercase;
-        color: #915a2b;
+        color: #fde68a;
         font-weight: 700;
       }
-      .moon { font-size: 26px; margin: 8px 0 0; }
+      .moon { font-size: 18px; margin: 6px 0 0; }
     </style>
   </head>
   <body>
@@ -228,10 +242,13 @@ export function renderPreviewPage(params: {
       <p class="subtitle">Raikan Syawal dengan senyuman, rezeki dan kasih sayang.</p>
       <a class="card-wrap" href="${safeTngUrl}" rel="noopener noreferrer">
         <div class="card">
-          <span class="badge">Kad Raya Ka-ching</span>
-          <p class="pantun">${safeLine1}<br/>${safeLine2}</p>
-          <p class="cta">tap to claim your duit raya</p>
-          <p class="moon">🌙✨💚✨🧧</p>
+          <img src="${safeAssetPath}" alt="Kad Raya" />
+          <div class="overlay">
+            <span class="badge">Pantun Raya</span>
+            <p class="pantun">${safeLine1}<br/>${safeLine2}</p>
+            <p class="cta">tap to claim your duit raya</p>
+            <p class="moon">🌙✨💚✨🧧</p>
+          </div>
         </div>
       </a>
     </main>

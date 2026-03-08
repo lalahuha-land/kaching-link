@@ -9,6 +9,7 @@ export interface LinkRecord {
   created_at: string;
   expires_at: string;
   pantun_index?: number;
+  asset_index?: number;
 }
 
 export function isValidTngUrl(tngUrl: string): boolean {
