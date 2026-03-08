@@ -2,6 +2,12 @@ import { getLinkById } from "../_lib/linkStore.js";
 import { renderExpiredPage, renderPreviewPage } from "../_lib/previewPage.js";
 import { fallbackPantunIndex, getPantunByIndex } from "../_lib/pantun.js";
 
+function isPreviewCrawler(userAgent: string): boolean {
+  return /facebookexternalhit|facebot|twitterbot|slackbot|telegrambot|whatsapp|linkedinbot|discordbot|pinterestbot/i.test(
+    userAgent,
+  );
+}
+
 export default async function handler(req: any, res: any) {
   if (req.method !== "GET") {
     res.setHeader("Allow", "GET");
@@ -23,6 +29,12 @@ export default async function handler(req: any, res: any) {
     if (!link) {
       return res.status(404).send(renderExpiredPage());
     }
+
+    const userAgent = String(req.headers["user-agent"] || "");
+    if (!isPreviewCrawler(userAgent)) {
+      return res.redirect(302, link.tng_url);
+    }
+
     const pantunIndex = typeof link.pantun_index === "number" ? link.pantun_index : fallbackPantunIndex(link.id);
     const pantun = getPantunByIndex(pantunIndex);
 

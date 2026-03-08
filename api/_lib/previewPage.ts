@@ -85,8 +85,21 @@ export function renderCardSvg(line1: string, line2: string): string {
 }
 
 export function buildCardPngUrl(pantun: [string, string]): string {
-  const text = `${pantun[0]}\n${pantun[1]}\n\ntap to claim your duit raya`;
-  return `https://dummyimage.com/1200x630/0f3d2e/f7eddc.png&text=${encodeURIComponent(text)}`;
+  const seed = `${pantun[0]}${pantun[1]}`;
+  let hash = 0;
+  for (let i = 0; i < seed.length; i += 1) {
+    hash = (hash * 31 + seed.charCodeAt(i)) >>> 0;
+  }
+
+  const palettes = [
+    { bg: "ff9a3c", fg: "1f2a44" },
+    { bg: "27ae60", fg: "fff5d9" },
+    { bg: "0f766e", fg: "fde68a" },
+    { bg: "f97316", fg: "1b4332" },
+  ];
+  const palette = palettes[hash % palettes.length];
+  const text = `🌙✨ SELAMAT HARI RAYA ✨🌙\n\n${pantun[0]}\n${pantun[1]}\n\n💸 tap to claim your duit raya 💸`;
+  return `https://dummyimage.com/1200x630/${palette.bg}/${palette.fg}.png&text=${encodeURIComponent(text)}`;
 }
 
 export function renderPreviewPage(params: {
@@ -127,16 +140,98 @@ export function renderPreviewPage(params: {
     <meta name="twitter:title" content="${safeTitle}" />
     <meta name="twitter:description" content="${safeDescription}" />
     <meta name="twitter:image" content="${safeOgImage}" />
+    <style>
+      :root { --a: #0f766e; --b: #f97316; --c: #fde68a; --ink: #1f2937; }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+        color: var(--ink);
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background: radial-gradient(circle at 20% 10%, #fff7d6 0%, #ffe7c2 35%, #ffd6a8 100%);
+      }
+      .shell { max-width: 700px; width: 100%; text-align: center; position: relative; }
+      .spark {
+        position: absolute; width: 12px; height: 12px; border-radius: 999px; opacity: .6;
+        animation: float 3.5s ease-in-out infinite;
+      }
+      .s1 { background: #f97316; left: 4%; top: 8%; animation-delay: .2s; }
+      .s2 { background: #0f766e; right: 6%; top: 16%; animation-delay: .8s; }
+      .s3 { background: #facc15; left: 10%; bottom: 20%; animation-delay: 1.2s; }
+      .s4 { background: #14b8a6; right: 12%; bottom: 14%; animation-delay: .5s; }
+      @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+      .title {
+        margin: 0 0 10px;
+        font-size: clamp(34px, 6vw, 52px);
+        color: #8a2f00;
+        text-shadow: 0 3px 0 rgba(255,255,255,.4);
+      }
+      .subtitle { margin: 0 0 20px; opacity: .78; font-size: 17px; }
+      .card-wrap {
+        display: block;
+        text-decoration: none;
+        border-radius: 28px;
+        padding: 14px;
+        background: linear-gradient(135deg, var(--a), #115e59 35%, #166534 100%);
+        box-shadow: 0 22px 45px rgba(17,24,39,.25);
+      }
+      .card {
+        position: relative;
+        border-radius: 20px;
+        overflow: hidden;
+        padding: 30px 20px;
+        background:
+          radial-gradient(circle at 12% 16%, rgba(249,115,22,.18), transparent 32%),
+          radial-gradient(circle at 88% 82%, rgba(15,118,110,.16), transparent 30%),
+          #fff7e8;
+      }
+      .badge {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: #fff;
+        color: #0f766e;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+      }
+      .pantun {
+        margin: 16px 0 0;
+        color: #1f3e33;
+        font-size: clamp(22px, 3vw, 30px);
+        line-height: 1.5;
+        font-family: Georgia, "Times New Roman", serif;
+        font-weight: 700;
+      }
+      .cta {
+        margin-top: 18px;
+        font-size: 12px;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        color: #915a2b;
+        font-weight: 700;
+      }
+      .moon { font-size: 26px; margin: 8px 0 0; }
+    </style>
   </head>
-  <body style="margin:0;font-family:system-ui;background:#f5f2ed;color:#1a1a1a;display:grid;place-items:center;min-height:100vh;padding:24px;">
-    <main style="max-width:620px;width:100%;text-align:center;">
-      <h1 style="margin:0 0 10px;font-size:34px;">Selamat Hari Raya</h1>
-      <p style="margin:0 0 20px;opacity:.72;line-height:1.5;">Tekan kad di bawah untuk buka Duit Raya anda.</p>
-      <a href="${safeTngUrl}" rel="noopener noreferrer" style="display:block;border-radius:20px;overflow:hidden;box-shadow:0 20px 45px rgba(0,0,0,0.16);text-decoration:none;background:linear-gradient(135deg,#0f3d2e,#1d6b50);padding:18px;">
-        <div style="background:#f7eddc;border-radius:14px;padding:28px 16px;">
-          <p style="margin:0 0 14px;font-size:30px;color:#b2521c;font-weight:700;font-family:Georgia, 'Times New Roman', serif;">Kad Raya Ka-ching</p>
-          <p style="margin:0;font-size:22px;line-height:1.6;color:#1f3e33;font-family:Georgia, 'Times New Roman', serif;">${safeLine1}<br/>${safeLine2}</p>
-          <p style="margin:16px 0 0;font-size:12px;letter-spacing:.06em;color:#7a5b45;">tap to claim your duit raya</p>
+  <body>
+    <main class="shell">
+      <span class="spark s1"></span>
+      <span class="spark s2"></span>
+      <span class="spark s3"></span>
+      <span class="spark s4"></span>
+      <h1 class="title">Selamat Hari Raya!</h1>
+      <p class="subtitle">Raikan Syawal dengan senyuman, rezeki dan kasih sayang.</p>
+      <a class="card-wrap" href="${safeTngUrl}" rel="noopener noreferrer">
+        <div class="card">
+          <span class="badge">Kad Raya Ka-ching</span>
+          <p class="pantun">${safeLine1}<br/>${safeLine2}</p>
+          <p class="cta">tap to claim your duit raya</p>
+          <p class="moon">🌙✨💚✨🧧</p>
         </div>
       </a>
     </main>
