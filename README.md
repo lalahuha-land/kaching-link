@@ -1,6 +1,6 @@
 # Ka-ching Link
 
-Ka-ching Link is a small web app to generate shareable Duit Raya links with rich social previews for platforms like WhatsApp, Telegram, Threads, and Facebook.
+Ka-ching Link is a small web app to generate shareable Duit Raya links with rich social previews for platforms like WhatsApp, Telegram, Threads, and Facebook (probably).
 
 The app includes:
 - React + Vite frontend (`src/`)
