@@ -4,7 +4,7 @@ export const api = {
   createLink: async (tngUrl: string): Promise<CreateLinkResponse> => {
     if (typeof window !== "undefined" && window.location.protocol === "file:") {
       return {
-        error: "Aplikasi tidak boleh dijalankan terus dari fail. Sila guna `npm run dev` dan buka http://localhost:3000.",
+        error: "Aplikasi tidak boleh dijalankan terus dari fail.",
       };
     }
 
@@ -22,7 +22,7 @@ export const api = {
       });
     } catch {
       return {
-        error: "Tidak dapat menghubungi API. Sila pastikan app berjalan melalui `npm run dev`.",
+        error: "Tidak dapat menghubungi API.",
       };
     }
 

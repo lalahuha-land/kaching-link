@@ -80,7 +80,7 @@ export default function App() {
             Ka-ching Link
           </h1>
           <p className="text-lg text-[#1A1A1A]/60 max-w-md mx-auto">
-            Jana pautan Duit Raya dengan pratonton media yang cantik.
+            Jana pautan Duit Raya.
           </p>
         </motion.div>
 

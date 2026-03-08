@@ -12,7 +12,7 @@ const LinkPreview = () => {
     >
       <div className="text-center mb-4">
         <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#FF6321] bg-[#FF6321]/10 px-3 py-1 rounded-full">
-          Pratonton Live
+          Selamat Hari Raya!
         </span>
       </div>
       
