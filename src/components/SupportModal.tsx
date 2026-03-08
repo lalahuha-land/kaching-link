@@ -45,7 +45,7 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
 
               <div className="grid grid-cols-2 gap-6">
                 <div className="space-y-3">
-                  <div className="aspect-square bg-[#F5F2ED] rounded-2xl p-3 border border-black/5">
+                  <div className="aspect-square max-w-[110px] sm:max-w-none mx-auto bg-[#F5F2ED] rounded-2xl p-3 border border-black/5">
                     <img 
                       src="/assets/qr-tng-1.png" 
                       alt="TNG QR 1"
@@ -56,7 +56,7 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
                   <p className="text-[10px] font-bold uppercase tracking-widest text-[#1A1A1A]/40">TNG eWallet 1</p>
                 </div>
                 <div className="space-y-3">
-                  <div className="aspect-square bg-[#F5F2ED] rounded-2xl p-3 border border-black/5">
+                  <div className="aspect-square max-w-[110px] sm:max-w-none mx-auto bg-[#F5F2ED] rounded-2xl p-3 border border-black/5">
                     <img 
                       src="/assets/qr-tng-2.png" 
                       alt="TNG QR 2"
