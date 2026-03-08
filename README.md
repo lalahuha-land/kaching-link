@@ -70,9 +70,27 @@ Query parameter:
 
 ## Data Storage
 
-- On Vercel: configure `KV_REST_API_URL` and `KV_REST_API_TOKEN` for persistent storage.
+- On Vercel: configure one of these env var pairs for persistent storage:
+  - `KV_REST_API_URL` + `KV_REST_API_TOKEN`
+  - `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN`
 - Local fallback: SQLite file `kaching.db` (created in project root).
 - Links are currently set to expire 7 days after creation.
+
+## Vercel Setup (Required)
+
+1. Add Upstash Redis via Vercel Storage / Marketplace.
+2. Ensure one full REST env var pair exists in Project Settings -> Environment Variables.
+3. Apply vars to `Production` and `Preview` environments.
+4. Redeploy after saving env vars.
+
+## Troubleshooting
+
+- Error `500` on `POST /api/links` in Vercel usually means KV is not configured or token auth failed.
+- Check Function Logs for messages such as:
+  - `KV is not configured...`
+  - `KV set failed with status 401/403`
+- If KV is not configured, verify env var names exactly and redeploy.
+- If auth fails, copy fresh REST URL/token from Upstash and update Vercel env vars.
 
 ## Notes
 
