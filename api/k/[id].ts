@@ -1,7 +1,7 @@
 import { getLinkById } from "../_lib/linkStore.js";
 import { renderExpiredPage, renderPreviewPage } from "../_lib/previewPage.js";
 import { fallbackPantunIndex, getPantunByIndex } from "../_lib/pantun.js";
-import { fallbackAssetIndex, getAssetPathByIndex } from "../_lib/assets.js";
+import { fallbackAssetIndex, getAssetMimeByPath, getAssetPathByIndex } from "../_lib/assets.js";
 
 function isPreviewCrawler(userAgent: string): boolean {
   return /facebookexternalhit|facebot|meta-externalagent|meta-externalfetcher|twitterbot|slackbot|telegrambot|whatsapp|linkedinbot|discordbot|pinterestbot|skypeuripreview/i.test(
@@ -40,12 +40,14 @@ export default async function handler(req: any, res: any) {
     const pantun = getPantunByIndex(pantunIndex);
     const assetIndex = typeof link.asset_index === "number" ? link.asset_index : fallbackAssetIndex(link.id);
     const assetPath = getAssetPathByIndex(assetIndex);
+    const assetMime = getAssetMimeByPath(assetPath);
 
     const html = renderPreviewPage({
       id,
       tngUrl: link.tng_url,
       pantun,
       assetPath,
+      assetMime,
       host: req.headers["x-forwarded-host"] || req.headers.host,
       proto: req.headers["x-forwarded-proto"],
     });
