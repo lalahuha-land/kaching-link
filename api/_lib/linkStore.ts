@@ -1,4 +1,4 @@
-import { buildExpiryIso, generateShortId, LINK_TTL_DAYS, type LinkRecord } from "./linkUtils";
+import { buildExpiryIso, generateShortId, LINK_TTL_DAYS, type LinkRecord } from "./linkUtils.js";
 
 const KV_REST_API_URL = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
 const KV_REST_API_TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;

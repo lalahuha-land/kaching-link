@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { escapeHtml } from "./linkUtils";
+import { escapeHtml } from "./linkUtils.js";
 
 interface PreviewMetadata {
   ogTitle: string;

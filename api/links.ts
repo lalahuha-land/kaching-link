@@ -1,5 +1,5 @@
-import { createLink } from "./_lib/linkStore";
-import { isValidTngUrl } from "./_lib/linkUtils";
+import { createLink } from "./_lib/linkStore.js";
+import { isValidTngUrl } from "./_lib/linkUtils.js";
 
 async function parseRequestBody(req: any): Promise<Record<string, unknown>> {
   if (req.body && typeof req.body === "object") {

@@ -1,4 +1,4 @@
-import { getLinkById } from "../_lib/linkStore";
+import { getLinkById } from "../_lib/linkStore.js";
 
 export default async function handler(req: any, res: any) {
   if (req.method !== "GET") {
