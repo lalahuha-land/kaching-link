@@ -1,5 +1,5 @@
-import { getLinkById } from "../../src/server/linkStore";
-import { renderExpiredPage, renderPreviewPage } from "../../src/server/previewPage";
+import { getLinkById } from "../_lib/linkStore";
+import { renderExpiredPage, renderPreviewPage } from "../_lib/previewPage";
 
 export default async function handler(req: any, res: any) {
   if (req.method !== "GET") {
