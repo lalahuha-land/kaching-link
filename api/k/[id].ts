@@ -4,7 +4,7 @@ import { fallbackPantunIndex, getPantunByIndex } from "../_lib/pantun.js";
 import { fallbackAssetIndex, getAssetPathByIndex } from "../_lib/assets.js";
 
 function isPreviewCrawler(userAgent: string): boolean {
-  return /facebookexternalhit|facebot|twitterbot|slackbot|telegrambot|whatsapp|linkedinbot|discordbot|pinterestbot/i.test(
+  return /facebookexternalhit|facebot|meta-externalagent|meta-externalfetcher|twitterbot|slackbot|telegrambot|whatsapp|linkedinbot|discordbot|pinterestbot|skypeuripreview/i.test(
     userAgent,
   );
 }
