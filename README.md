@@ -59,14 +59,15 @@ npm run dev
   Returns an HTML page with Open Graph metadata and a clickable festive card that opens the original TNG URL.
   This route is handled by Vercel rewrite to `/api/k/:id`.
 
-Query parameter:
-- `hasGif=true` to use GIF preview image in metadata response.
+- `GET /api/card/:id`
+  Returns a Pantun Raya card image (SVG) used for Open Graph preview.
 
 ## Configuration
 
 - `metadata.json`: update default OG title/description.
-- `src/server/previewPage.ts`: edit Open Graph + preview HTML.
-- `src/server/linkStore.ts`: Vercel KV + SQLite fallback link storage logic.
+- `api/_lib/previewPage.ts`: edit Open Graph + preview HTML/SVG card templates.
+- `api/_lib/linkStore.ts`: Vercel KV storage logic for serverless functions.
+- `api/_lib/pantun.ts`: Pantun list and random selection behavior.
 
 ## Data Storage
 

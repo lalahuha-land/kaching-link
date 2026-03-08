@@ -1,5 +1,6 @@
 import { getLinkById } from "../_lib/linkStore.js";
 import { renderExpiredPage, renderPreviewPage } from "../_lib/previewPage.js";
+import { fallbackPantunIndex, getPantunByIndex } from "../_lib/pantun.js";
 
 export default async function handler(req: any, res: any) {
   if (req.method !== "GET") {
@@ -8,8 +9,6 @@ export default async function handler(req: any, res: any) {
   }
 
   const id = typeof req.query?.id === "string" ? req.query.id : "";
-  const hasGif = req.query?.hasGif === "true";
-
   if (!id) {
     res.setHeader("Content-Type", "text/html; charset=utf-8");
     return res.status(400).send(renderExpiredPage());
@@ -24,11 +23,13 @@ export default async function handler(req: any, res: any) {
     if (!link) {
       return res.status(404).send(renderExpiredPage());
     }
+    const pantunIndex = typeof link.pantun_index === "number" ? link.pantun_index : fallbackPantunIndex(link.id);
+    const pantun = getPantunByIndex(pantunIndex);
 
     const html = renderPreviewPage({
       id,
       tngUrl: link.tng_url,
-      hasGif,
+      pantun,
       host: req.headers["x-forwarded-host"] || req.headers.host,
       proto: req.headers["x-forwarded-proto"],
     });

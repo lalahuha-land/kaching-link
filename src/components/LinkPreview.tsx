@@ -36,7 +36,7 @@ const LinkPreview = () => {
               style={{ backgroundImage: 'radial-gradient(circle, white 2px, transparent 2px)', backgroundSize: '20px 20px' }}
             />
             
-            {/* Floating Wallet Icon (Simulating the GIF) */}
+            {/* Floating Wallet Icon (Card Hero Illustration) */}
             <motion.div
               animate={{ 
                 y: [0, -15, 0],
@@ -83,7 +83,7 @@ const LinkPreview = () => {
             </div>
             <h3 className="text-xl font-extrabold mb-2 tracking-tight">Duit Raya untuk anda! 🧧</h3>
             <p className="text-sm text-[#1A1A1A]/50 leading-relaxed">
-              Seseorang telah menghantar Duit Raya kepada anda! Klik untuk tuntut sekarang di Touch 'n Go eWallet.
+              Bunga melati harum mewangi, Selamat Hari Raya, duit raya menanti.
             </p>
             
             <div className="mt-6 pt-6 border-t border-black/5 flex items-center justify-between">

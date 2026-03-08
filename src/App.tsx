@@ -15,7 +15,6 @@ export default function App() {
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showSupportModal, setShowSupportModal] = useState(false);
-  const [useGif, setUseGif] = useState(true);
 
   const requiredPrefix = "https://cdn.tngdigital.com.my/s/oauth2/index.html#/moneypacket?";
 
@@ -36,9 +35,7 @@ export default function App() {
     try {
       const data = await api.createLink(tngUrl);
       if (data.id) {
-        const baseUrl = `${window.location.origin}/k/${data.id}`;
-        const fullUrl = useGif ? `${baseUrl}?hasGif=true` : baseUrl;
-        setCreatedLink(fullUrl);
+        setCreatedLink(`${window.location.origin}/k/${data.id}`);
       } else {
         setError(data.error || "Gagal menjana pautan.");
       }
@@ -107,8 +104,6 @@ export default function App() {
                 setTngUrl(url);
                 if (error) setError(null);
               }}
-              useGif={useGif}
-              setUseGif={setUseGif}
               error={error}
               loading={loading}
               onSubmit={handleCreate}

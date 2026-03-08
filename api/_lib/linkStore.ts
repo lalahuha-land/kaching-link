@@ -1,4 +1,5 @@
 import { buildExpiryIso, generateShortId, LINK_TTL_DAYS, type LinkRecord } from "./linkUtils.js";
+import { fallbackPantunIndex, pickRandomPantunIndex } from "./pantun.js";
 
 const KV_REST_API_URL = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
 const KV_REST_API_TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
@@ -48,6 +49,7 @@ export async function createLink(tngUrl: string): Promise<LinkRecord> {
     tng_url: tngUrl,
     created_at: createdAt,
     expires_at: expiresAt,
+    pantun_index: pickRandomPantunIndex(),
   };
 
   const ttlSeconds = LINK_TTL_DAYS * 24 * 60 * 60;
@@ -62,6 +64,9 @@ export async function getLinkById(id: string): Promise<LinkRecord | null> {
   }
 
   const parsed = JSON.parse(raw) as LinkRecord;
+  if (typeof parsed.pantun_index !== "number") {
+    parsed.pantun_index = fallbackPantunIndex(parsed.id);
+  }
   if (new Date(parsed.expires_at).getTime() <= Date.now()) {
     return null;
   }

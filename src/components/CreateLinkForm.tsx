@@ -5,8 +5,6 @@ import { Sparkles, Info } from 'lucide-react';
 interface CreateLinkFormProps {
   tngUrl: string;
   setTngUrl: (url: string) => void;
-  useGif: boolean;
-  setUseGif: (use: boolean) => void;
   error: string | null;
   loading: boolean;
   onSubmit: (e: React.FormEvent) => void;
@@ -15,8 +13,6 @@ interface CreateLinkFormProps {
 const CreateLinkForm: React.FC<CreateLinkFormProps> = ({
   tngUrl,
   setTngUrl,
-  useGif,
-  setUseGif,
   error,
   loading,
   onSubmit
@@ -48,26 +44,9 @@ const CreateLinkForm: React.FC<CreateLinkFormProps> = ({
           )}
         </div>
 
-        <div className="flex items-center justify-between p-4 bg-[#F5F2ED] rounded-2xl border border-black/5">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm">
-              <Sparkles className={`w-5 h-5 ${useGif ? 'text-[#FF6321]' : 'text-[#1A1A1A]/20'}`} />
-            </div>
-            <div>
-              <p className="text-sm font-bold">Gunakan GIF Animasi</p>
-              <p className="text-[10px] text-[#1A1A1A]/40">Paparan lebih meriah di media sosial</p>
-            </div>
-          </div>
-          <button
-            type="button"
-            onClick={() => setUseGif(!useGif)}
-            className={`relative w-12 h-6 rounded-full transition-colors duration-200 focus:outline-none ${useGif ? 'bg-[#FF6321]' : 'bg-[#1A1A1A]/10'}`}
-          >
-            <motion.div
-              animate={{ x: useGif ? 24 : 4 }}
-              className="absolute top-1 w-4 h-4 bg-white rounded-full shadow-sm"
-            />
-          </button>
+        <div className="p-4 bg-[#F5F2ED] rounded-2xl border border-black/5">
+          <p className="text-sm font-bold text-[#1A1A1A]">Kad Pantun Hari Raya</p>
+          <p className="text-[11px] text-[#1A1A1A]/50 mt-1">Setiap pautan akan pilih satu pantun raya secara rawak.</p>
         </div>
 
         <div className="pt-2">

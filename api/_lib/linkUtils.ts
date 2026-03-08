@@ -8,6 +8,7 @@ export interface LinkRecord {
   tng_url: string;
   created_at: string;
   expires_at: string;
+  pantun_index?: number;
 }
 
 export function isValidTngUrl(tngUrl: string): boolean {
