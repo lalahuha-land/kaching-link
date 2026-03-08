@@ -197,11 +197,11 @@ export function renderPreviewPage(params: {
         left: 8%;
         right: 48%;
         bottom: 11%;
-        background: rgba(16, 131, 125, 0.88);
+        background: transparent;
         border-radius: 14px;
         padding: 18px 16px;
-        border: 2px solid rgba(255, 255, 255, 0.18);
-        box-shadow: 0 8px 20px rgba(0,0,0,.2);
+        border: 2px solid transparent;
+        box-shadow: none;
       }
       .badge {
         display: inline-block;
