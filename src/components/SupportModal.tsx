@@ -47,24 +47,24 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
                 <div className="space-y-3">
                   <div className="aspect-square max-w-[110px] sm:max-w-none mx-auto bg-[#F5F2ED] rounded-2xl p-3 border border-black/5">
                     <img 
-                      src="/assets/qr-tng-1.png" 
-                      alt="TNG QR 1"
+                      src="/assets/kad-raya/touchngo-qr.png" 
+                      alt="Touch 'n Go QR"
                       className="w-full h-full object-contain mix-blend-multiply"
                       referrerPolicy="no-referrer"
                     />
                   </div>
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-[#1A1A1A]/40">TNG eWallet 1</p>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-[#1A1A1A]/40">Touch 'n Go</p>
                 </div>
                 <div className="space-y-3">
                   <div className="aspect-square max-w-[110px] sm:max-w-none mx-auto bg-[#F5F2ED] rounded-2xl p-3 border border-black/5">
                     <img 
-                      src="/assets/qr-tng-2.png" 
-                      alt="TNG QR 2"
+                      src="/assets/kad-raya/mae-qr.png" 
+                      alt="MAE QR"
                       className="w-full h-full object-contain mix-blend-multiply"
                       referrerPolicy="no-referrer"
                     />
                   </div>
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-[#1A1A1A]/40">TNG eWallet 2</p>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-[#1A1A1A]/40">MAE</p>
                 </div>
               </div>
 

@@ -196,12 +196,7 @@ export function renderPreviewPage(params: {
         position: absolute;
         left: 8%;
         right: 48%;
-        bottom: 11%;
-        background: transparent;
-        border-radius: 14px;
-        padding: 18px 16px;
-        border: 2px solid transparent;
-        box-shadow: none;
+        bottom: 18%;
       }
       .badge {
         display: inline-block;

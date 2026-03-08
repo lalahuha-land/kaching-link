@@ -61,12 +61,8 @@ export default async function handler(req: any, res: any) {
             style={{
               position: "absolute",
               left: "84px",
-              top: "212px",
+              top: "170px",
               width: "520px",
-              borderRadius: "18px",
-              padding: "26px 24px",
-              background: "transparent",
-              border: "2px solid transparent",
               color: "#fefce8",
               display: "flex",
               flexDirection: "column",
