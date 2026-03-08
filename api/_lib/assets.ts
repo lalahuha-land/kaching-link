@@ -1,5 +1,4 @@
 export const KAD_RAYA_ASSETS = [
-  "/assets/kad-raya/Gemini_Generated_Image_u7qulou7qulou7qu.png",
   "/assets/kad-raya/Gemini_Generated_Image_x4bzqmx4bzqmx4bz.png",
 ];
 
