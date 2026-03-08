@@ -36,7 +36,7 @@ export default function App() {
     try {
       const data = await api.createLink(tngUrl);
       if (data.id) {
-        const baseUrl = `${window.location.origin}/g/${data.id}`;
+        const baseUrl = `${window.location.origin}/k/${data.id}`;
         const fullUrl = useGif ? `${baseUrl}?hasGif=true` : baseUrl;
         setCreatedLink(fullUrl);
       } else {

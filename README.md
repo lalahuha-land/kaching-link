@@ -4,9 +4,9 @@ Ka-ching Link is a small web app to generate shareable Duit Raya links with rich
 
 The app includes:
 - React + Vite frontend (`src/`)
-- Express server (`server.ts`)
-- SQLite storage using `better-sqlite3` (`kaching.db`)
-- Bot-aware preview page at `/g/:id`
+- Vercel serverless API routes (`api/`)
+- Link storage via Vercel KV (recommended) or local SQLite fallback
+- Share preview page at `/k/:id` (rewritten to `/api/k/:id`)
 
 ## Prerequisites
 
@@ -55,10 +55,9 @@ npm run dev
 - `GET /api/links/:id`  
   Returns link details if found and not expired.
 
-- `GET /g/:id`  
-  Smart route:
-  - bot user-agents receive Open Graph HTML metadata
-  - human users are redirected to the original TNG URL
+- `GET /k/:id`  
+  Returns an HTML page with Open Graph metadata and a clickable festive card that opens the original TNG URL.
+  This route is handled by Vercel rewrite to `/api/k/:id`.
 
 Query parameter:
 - `hasGif=true` to use GIF preview image in metadata response.
@@ -66,15 +65,16 @@ Query parameter:
 ## Configuration
 
 - `metadata.json`: update default OG title/description.
-- `src/server/templates.ts`: edit HTML templates for bot previews, redirect, and 404.
-- `src/server/db.ts`: SQLite schema and hourly cleanup for expired links.
+- `src/server/previewPage.ts`: edit Open Graph + preview HTML.
+- `src/server/linkStore.ts`: Vercel KV + SQLite fallback link storage logic.
 
 ## Data Storage
 
-- SQLite file: `kaching.db` (created in project root)
+- On Vercel: configure `KV_REST_API_URL` and `KV_REST_API_TOKEN` for persistent storage.
+- Local fallback: SQLite file `kaching.db` (created in project root).
 - Links are currently set to expire 7 days after creation.
 
 ## Notes
 
-- This project currently runs fully from `server.ts` in development mode.
-- If you deploy to production, ensure your runtime can execute TypeScript entry files (or compile server code to JavaScript first).
+- Local `npm run dev` still uses `server.ts` for convenience.
+- Vercel production flow uses routes in `api/` and `vercel.json` rewrites.

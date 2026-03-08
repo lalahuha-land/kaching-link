@@ -56,7 +56,7 @@ async function startServer() {
   });
 
   // Smart Middleware / Dynamic Metadata Route
-  app.get("/g/:id", (req, res) => {
+  app.get(["/g/:id", "/k/:id"], (req, res) => {
     const userAgent = req.headers["user-agent"] || "";
     const isBot = /WhatsApp|TelegramBot|facebookexternalhit|Twitterbot|Slackbot|LinkedInBot|Threads|Discordbot/i.test(userAgent);
 
