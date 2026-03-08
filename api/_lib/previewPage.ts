@@ -106,14 +106,13 @@ export function renderPreviewPage(params: {
   tngUrl: string;
   pantun: [string, string];
   assetPath: string;
-  assetMime: string;
   host?: string;
   proto?: string;
 }): string {
   const metadata = loadMetadata();
   const baseUrl = resolveBaseUrl(params.host, params.proto);
   const pageUrl = `${baseUrl}/k/${params.id}`;
-  const ogImage = `${baseUrl}${params.assetPath}`;
+  const ogImage = `${baseUrl}/api/card/${params.id}`;
 
   const safeTitle = escapeHtml(metadata.ogTitle);
   const safeDescription = escapeHtml(metadata.ogDescription);
@@ -134,7 +133,7 @@ export function renderPreviewPage(params: {
     <meta property="og:description" content="${safeDescription}" />
     <meta property="og:image" content="${safeOgImage}" />
     <meta property="og:image:secure_url" content="${safeOgImage}" />
-    <meta property="og:image:type" content="${escapeHtml(params.assetMime)}" />
+    <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:type" content="website" />
