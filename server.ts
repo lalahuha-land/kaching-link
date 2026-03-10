@@ -85,7 +85,7 @@ async function startServer() {
         console.error("Error reading metadata.json:", err);
       }
 
-      const hasGif = req.query.hasGif !== "false";
+      const hasGif = req.query.hasGif === "true";
       const protoHeader = req.headers["x-forwarded-proto"];
       const proto = Array.isArray(protoHeader)
         ? protoHeader[0]
