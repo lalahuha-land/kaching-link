@@ -107,7 +107,7 @@ async function startServer() {
   // OG image proxy to ensure cache control and stable sizing
   app.get("/og/:id.png", (req, res) => {
     const id = req.params.id;
-    const ogPath = buildKadRayaOgImagePath(id).replace(/^\\//, "");
+    const ogPath = buildKadRayaOgImagePath(id).replace(/^\//, "");
     const publicRoot = path.join(process.cwd(), "public");
     const distRoot = path.join(process.cwd(), "dist");
     let filePath = path.join(publicRoot, ogPath);
