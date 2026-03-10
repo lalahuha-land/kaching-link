@@ -85,7 +85,6 @@ async function startServer() {
         console.error("Error reading metadata.json:", err);
       }
 
-      const hasGif = req.query.hasGif === "true";
       const protoHeader = req.headers["x-forwarded-proto"];
       const proto = Array.isArray(protoHeader)
         ? protoHeader[0]
@@ -94,7 +93,7 @@ async function startServer() {
       const protocol = proto || (host?.includes("localhost") ? "http" : "https");
       const baseUrl = `${protocol}://${host}`;
       const cacheBuster = encodeURIComponent(link.created_at || link.id);
-      const ogImage = `${baseUrl}${buildKadRayaOgImagePath(link.id)}?v=${cacheBuster}`;
+      const ogImage = `${baseUrl}/og/${link.id}.png?v=${cacheBuster}`;
       const ogImageType = "image/png";
       const ogWidth = KAD_RAYA_OG_WIDTH;
       const ogHeight = KAD_RAYA_OG_HEIGHT;
@@ -103,6 +102,26 @@ async function startServer() {
     }
 
     res.send(humanRedirectTemplate(link.tng_url));
+  });
+
+  // OG image proxy to ensure cache control and stable sizing
+  app.get("/og/:id.png", (req, res) => {
+    const id = req.params.id;
+    const ogPath = buildKadRayaOgImagePath(id).replace(/^\\//, "");
+    const publicRoot = path.join(process.cwd(), "public");
+    const distRoot = path.join(process.cwd(), "dist");
+    let filePath = path.join(publicRoot, ogPath);
+    if (!fs.existsSync(filePath)) {
+      filePath = path.join(distRoot, ogPath);
+    }
+
+    if (!fs.existsSync(filePath)) {
+      return res.status(404).send("Not found");
+    }
+
+    res.setHeader("Content-Type", "image/png");
+    res.setHeader("Cache-Control", "no-store, max-age=0");
+    return res.sendFile(filePath);
   });
 
   if (process.env.NODE_ENV !== "production") {
