@@ -66,5 +66,5 @@ export function buildKadRayaImagePath(id: string, useGif: boolean): string {
 
 export function buildKadRayaOgImagePath(id: string): string {
   const index = pickKadRayaImageIndex(id);
-  return `/assets/kad-raya-og/${index}.png`;
+  return `/assets/kad-raya-og-v2/${index}.png`;
 }
