@@ -43,6 +43,8 @@ export const KAD_RAYA_IMAGE_START = 3;
 export const KAD_RAYA_IMAGE_END = 12;
 export const KAD_RAYA_IMAGE_WIDTH = "1748";
 export const KAD_RAYA_IMAGE_HEIGHT = "1240";
+export const KAD_RAYA_OG_WIDTH = "1200";
+export const KAD_RAYA_OG_HEIGHT = "630";
 
 export function pickKadRayaImageIndex(id: string): number {
   let hash = 0;
@@ -60,4 +62,9 @@ export function buildKadRayaImagePath(id: string, useGif: boolean): string {
   const folder = useGif ? "kad-raya-gif" : "kad-raya";
   const ext = useGif ? "gif" : "png";
   return `/assets/${folder}/${index}.${ext}`;
+}
+
+export function buildKadRayaOgImagePath(id: string): string {
+  const index = pickKadRayaImageIndex(id);
+  return `/assets/kad-raya-og/${index}.png`;
 }

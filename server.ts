@@ -6,9 +6,9 @@ import { fileURLToPath } from "url";
 import db from "./src/server/db";
 import { botTemplate, error404Template, humanRedirectTemplate } from "./src/server/templates";
 import {
-  buildKadRayaImagePath,
-  KAD_RAYA_IMAGE_HEIGHT,
-  KAD_RAYA_IMAGE_WIDTH,
+  buildKadRayaOgImagePath,
+  KAD_RAYA_OG_HEIGHT,
+  KAD_RAYA_OG_WIDTH,
 } from "./src/server/linkUtils";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -90,14 +90,14 @@ async function startServer() {
       const proto = Array.isArray(protoHeader)
         ? protoHeader[0]
         : protoHeader?.split(",")[0];
-      const protocol = proto || req.protocol || "https";
       const host = req.get("host");
+      const protocol = proto || (host?.includes("localhost") ? "http" : "https");
       const baseUrl = `${protocol}://${host}`;
       const cacheBuster = encodeURIComponent(link.created_at || link.id);
-      const ogImage = `${baseUrl}${buildKadRayaImagePath(link.id, false)}?v=${cacheBuster}`;
+      const ogImage = `${baseUrl}${buildKadRayaOgImagePath(link.id)}?v=${cacheBuster}`;
       const ogImageType = "image/png";
-      const ogWidth = KAD_RAYA_IMAGE_WIDTH;
-      const ogHeight = KAD_RAYA_IMAGE_HEIGHT;
+      const ogWidth = KAD_RAYA_OG_WIDTH;
+      const ogHeight = KAD_RAYA_OG_HEIGHT;
 
       return res.send(botTemplate(title, description, ogImage, ogImageType, ogWidth, ogHeight));
     }
