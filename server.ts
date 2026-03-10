@@ -94,8 +94,8 @@ async function startServer() {
       const host = req.get("host");
       const baseUrl = `${protocol}://${host}`;
       const cacheBuster = encodeURIComponent(link.created_at || link.id);
-      const ogImage = `${baseUrl}${buildKadRayaImagePath(link.id, hasGif)}?v=${cacheBuster}`;
-      const ogImageType = hasGif ? "image/gif" : "image/png";
+      const ogImage = `${baseUrl}${buildKadRayaImagePath(link.id, false)}?v=${cacheBuster}`;
+      const ogImageType = "image/png";
       const ogWidth = KAD_RAYA_IMAGE_WIDTH;
       const ogHeight = KAD_RAYA_IMAGE_HEIGHT;
 
