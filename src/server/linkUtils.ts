@@ -38,3 +38,26 @@ export function escapeHtml(value: string): string {
     .replace(/\"/g, "&quot;")
     .replace(/'/g, "&#39;");
 }
+
+export const KAD_RAYA_IMAGE_START = 3;
+export const KAD_RAYA_IMAGE_END = 12;
+export const KAD_RAYA_IMAGE_WIDTH = "1748";
+export const KAD_RAYA_IMAGE_HEIGHT = "1240";
+
+export function pickKadRayaImageIndex(id: string): number {
+  let hash = 0;
+  for (let i = 0; i < id.length; i += 1) {
+    hash = (hash << 5) - hash + id.charCodeAt(i);
+    hash |= 0;
+  }
+  const range = KAD_RAYA_IMAGE_END - KAD_RAYA_IMAGE_START + 1;
+  const offset = Math.abs(hash) % range;
+  return KAD_RAYA_IMAGE_START + offset;
+}
+
+export function buildKadRayaImagePath(id: string, useGif: boolean): string {
+  const index = pickKadRayaImageIndex(id);
+  const folder = useGif ? "kad-raya-gif" : "kad-raya";
+  const ext = useGif ? "gif" : "png";
+  return `/assets/${folder}/${index}.${ext}`;
+}

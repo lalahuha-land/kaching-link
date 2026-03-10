@@ -5,6 +5,11 @@ import fs from "fs";
 import { fileURLToPath } from "url";
 import db from "./src/server/db";
 import { botTemplate, error404Template, humanRedirectTemplate } from "./src/server/templates";
+import {
+  buildKadRayaImagePath,
+  KAD_RAYA_IMAGE_HEIGHT,
+  KAD_RAYA_IMAGE_WIDTH,
+} from "./src/server/linkUtils";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -80,18 +85,18 @@ async function startServer() {
         console.error("Error reading metadata.json:", err);
       }
 
-      const hasGif = req.query.hasGif === "true";
-      let ogImage = `https://images.unsplash.com/photo-1589923188900-85dae523342b?q=80&w=1200&h=630&auto=format&fit=crop`;
-      let ogImageType = "image/jpeg";
-      let ogWidth = "1200";
-      let ogHeight = "630";
-
-      if (hasGif) {
-        ogImage = `https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJqZnd4Znd4Znd4Znd4Znd4Znd4Znd4Znd4Znd4Znd4Znd4Znd4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKDkDbIDJieKbVm/giphy.gif`;
-        ogImageType = "image/gif";
-        ogWidth = "480";
-        ogHeight = "480";
-      }
+      const hasGif = req.query.hasGif !== "false";
+      const protoHeader = req.headers["x-forwarded-proto"];
+      const proto = Array.isArray(protoHeader)
+        ? protoHeader[0]
+        : protoHeader?.split(",")[0];
+      const protocol = proto || req.protocol || "https";
+      const host = req.get("host");
+      const baseUrl = `${protocol}://${host}`;
+      const ogImage = `${baseUrl}${buildKadRayaImagePath(link.id, hasGif)}`;
+      const ogImageType = hasGif ? "image/gif" : "image/png";
+      const ogWidth = KAD_RAYA_IMAGE_WIDTH;
+      const ogHeight = KAD_RAYA_IMAGE_HEIGHT;
 
       return res.send(botTemplate(title, description, ogImage, ogImageType, ogWidth, ogHeight));
     }

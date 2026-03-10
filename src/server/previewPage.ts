@@ -1,6 +1,11 @@
 import fs from "node:fs";
 import path from "node:path";
-import { escapeHtml } from "./linkUtils";
+import {
+  buildKadRayaImagePath,
+  escapeHtml,
+  KAD_RAYA_IMAGE_HEIGHT,
+  KAD_RAYA_IMAGE_WIDTH,
+} from "./linkUtils";
 
 interface PreviewMetadata {
   ogTitle: string;
@@ -69,9 +74,7 @@ export function renderPreviewPage(params: {
   const metadata = loadMetadata();
   const baseUrl = resolveBaseUrl(params.host, params.proto);
   const pageUrl = `${baseUrl}/k/${params.id}${params.hasGif ? "?hasGif=true" : ""}`;
-  const ogImage = params.hasGif
-    ? "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJqZnd4Znd4Znd4Znd4Znd4Znd4Znd4Znd4Znd4Znd4Znd4Znd4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKDkDbIDJieKbVm/giphy.gif"
-    : "https://images.unsplash.com/photo-1589923188900-85dae523342b?q=80&w=1200&h=630&auto=format&fit=crop";
+  const ogImage = `${baseUrl}${buildKadRayaImagePath(params.id, params.hasGif)}`;
 
   const safeTitle = escapeHtml(metadata.ogTitle);
   const safeDescription = escapeHtml(metadata.ogDescription);
@@ -89,6 +92,9 @@ export function renderPreviewPage(params: {
     <meta property="og:description" content="${safeDescription}" />
     <meta property="og:image" content="${safeOgImage}" />
     <meta property="og:image:secure_url" content="${safeOgImage}" />
+    <meta property="og:image:type" content="${params.hasGif ? "image/gif" : "image/png"}" />
+    <meta property="og:image:width" content="${KAD_RAYA_IMAGE_WIDTH}" />
+    <meta property="og:image:height" content="${KAD_RAYA_IMAGE_HEIGHT}" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="${safePageUrl}" />
     <meta name="twitter:card" content="summary_large_image" />

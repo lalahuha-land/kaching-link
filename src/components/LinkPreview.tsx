@@ -81,7 +81,7 @@ const LinkPreview = () => {
               <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
               <span className="text-[10px] font-bold text-emerald-600 uppercase tracking-wider">Aktif Sekarang</span>
             </div>
-            <h3 className="text-xl font-extrabold mb-2 tracking-tight">Duit Raya untuk anda! 🧧</h3>
+            <h3 className="text-xl font-extrabold mb-2 tracking-tight">Tap untuk claim Duit Raya! 🧧</h3>
             <p className="text-sm text-[#1A1A1A]/50 leading-relaxed">
               Bunga melati harum mewangi, Selamat Hari Raya, duit raya menanti.
             </p>
