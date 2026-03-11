@@ -9,6 +9,13 @@ function isPreviewCrawler(userAgent: string): boolean {
   );
 }
 
+function applySecurityHeaders(res: any) {
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("Referrer-Policy", "no-referrer");
+  res.setHeader("X-Frame-Options", "DENY");
+  res.setHeader("Permissions-Policy", "geolocation=(), microphone=(), camera=()");
+}
+
 export default async function handler(req: any, res: any) {
   if (req.method !== "GET" && req.method !== "HEAD") {
     res.setHeader("Allow", "GET, HEAD");
@@ -18,6 +25,7 @@ export default async function handler(req: any, res: any) {
   const id = typeof req.query?.id === "string" ? req.query.id : "";
   if (!id) {
     res.setHeader("Content-Type", "text/html; charset=utf-8");
+    applySecurityHeaders(res);
     return res.status(400).send(renderExpiredPage());
   }
 
@@ -26,6 +34,7 @@ export default async function handler(req: any, res: any) {
 
     res.setHeader("Content-Type", "text/html; charset=utf-8");
     res.setHeader("Cache-Control", "public, s-maxage=300, stale-while-revalidate=86400");
+    applySecurityHeaders(res);
 
     if (!link) {
       return res.status(404).send(renderExpiredPage());
@@ -63,6 +72,7 @@ export default async function handler(req: any, res: any) {
   } catch (error) {
     console.error("Error serving preview:", error);
     res.setHeader("Content-Type", "text/html; charset=utf-8");
+    applySecurityHeaders(res);
     return res.status(500).send(renderExpiredPage());
   }
 }

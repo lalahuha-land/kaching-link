@@ -3,15 +3,10 @@ import { getLinkById } from "../_lib/linkStore.js";
 import { fallbackPantunIndex, getPantunByIndex } from "../_lib/pantun.js";
 import { fallbackAssetIndex, getAssetPathByIndex } from "../_lib/assets.js";
 
-function resolveBaseUrl(host?: string, proto?: string): string {
-  if (host) {
-    return `${proto || "https"}://${host}`;
-  }
-
-  if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}`;
-  }
-
+function resolveBaseUrl(): string {
+  const explicit = process.env.PUBLIC_BASE_URL?.trim();
+  if (explicit) return explicit.replace(/\/+$/, "");
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
   return "http://localhost:3000";
 }
 
@@ -33,7 +28,7 @@ export default async function handler(req: any, res: any) {
 
     const pantun = getPantunByIndex(pantunIndex);
     const assetPath = getAssetPathByIndex(assetIndex);
-    const baseUrl = resolveBaseUrl(req.headers["x-forwarded-host"] || req.headers.host, req.headers["x-forwarded-proto"]);
+    const baseUrl = resolveBaseUrl();
     const assetUrl = `${baseUrl}${assetPath}`;
 
     const image = new ImageResponse(

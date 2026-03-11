@@ -29,15 +29,10 @@ function loadMetadata(): PreviewMetadata {
   }
 }
 
-function resolveBaseUrl(host?: string, proto?: string): string {
-  if (host) {
-    return `${proto || "https"}://${host}`;
-  }
-
-  if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}`;
-  }
-
+function resolveBaseUrl(): string {
+  const explicit = process.env.PUBLIC_BASE_URL?.trim();
+  if (explicit) return explicit.replace(/\/+$/, "");
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
   return "http://localhost:3000";
 }
 
@@ -111,7 +106,7 @@ export function renderPreviewPage(params: {
   proto?: string;
 }): string {
   const metadata = loadMetadata();
-  const baseUrl = resolveBaseUrl(params.host, params.proto);
+  const baseUrl = resolveBaseUrl();
   const pageUrl = `${baseUrl}/k/${params.id}`;
   const ogImage = `${baseUrl}${params.ogGifPath}`;
 
