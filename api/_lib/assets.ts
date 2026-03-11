@@ -3,16 +3,16 @@ export const KAD_RAYA_ASSETS = [
 ];
 
 export const KAD_RAYA_GIFS = [
-  "/assets/kad-raya-gif/pantun-0.gif",
-  "/assets/kad-raya-gif/pantun-1.gif",
-  "/assets/kad-raya-gif/pantun-2.gif",
-  "/assets/kad-raya-gif/pantun-3.gif",
-  "/assets/kad-raya-gif/pantun-4.gif",
-  "/assets/kad-raya-gif/pantun-5.gif",
-  "/assets/kad-raya-gif/pantun-6.gif",
-  "/assets/kad-raya-gif/pantun-7.gif",
-  "/assets/kad-raya-gif/pantun-8.gif",
-  "/assets/kad-raya-gif/pantun-9.gif",
+  "/assets/kad-raya-gif/3.gif",
+  "/assets/kad-raya-gif/4.gif",
+  "/assets/kad-raya-gif/5.gif",
+  "/assets/kad-raya-gif/6.gif",
+  "/assets/kad-raya-gif/7.gif",
+  "/assets/kad-raya-gif/8.gif",
+  "/assets/kad-raya-gif/9.gif",
+  "/assets/kad-raya-gif/10.gif",
+  "/assets/kad-raya-gif/11.gif",
+  "/assets/kad-raya-gif/12.gif",
 ];
 
 export function pickRandomAssetIndex(): number {
