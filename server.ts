@@ -73,7 +73,7 @@ async function startServer() {
     }
 
     if (isBot) {
-      let title = `Duit Raya untuk anda! 🧧`;
+      let title = `Tap untuk claim Duit Raya! 🧧`;
       let description = `Seseorang telah menghantar Duit Raya kepada anda! Klik untuk tuntut sekarang di Touch 'n Go eWallet.`;
       
       try {

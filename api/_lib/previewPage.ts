@@ -9,7 +9,7 @@ interface PreviewMetadata {
 
 function loadMetadata(): PreviewMetadata {
   const fallback: PreviewMetadata = {
-    ogTitle: "Duit Raya untuk anda!",
+    ogTitle: "Tap untuk claim Duit Raya!",
     ogDescription: "Seseorang telah menghantar Duit Raya kepada anda. Tekan kad untuk tuntut di Touch 'n Go eWallet.",
   };
 
