@@ -59,7 +59,7 @@ const SuccessView: React.FC<SuccessViewProps> = ({
         <div className="space-y-4">
           <div className="flex gap-4 items-start">
             <div className="w-8 h-8 rounded-full bg-[#FF6321]/10 text-[#FF6321] flex items-center justify-center shrink-0 font-bold text-sm">1</div>
-            <p className="text-sm text-[#1A1A1A]/70">Tampal pautan di Threads atau WhatsApp.</p>
+            <p className="text-sm text-[#1A1A1A]/70">Tampal pautan di Threads.</p>
           </div>
           <div className="flex gap-4 items-start">
             <div className="w-8 h-8 rounded-full bg-[#FF6321]/10 text-[#FF6321] flex items-center justify-center shrink-0 font-bold text-sm">2</div>
